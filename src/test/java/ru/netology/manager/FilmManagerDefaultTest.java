@@ -82,4 +82,15 @@ public class FilmManagerDefaultTest {
 
         verify(repository).findAll();
     }
+
+    @Test
+    public void shouldDisplayTenByDefaultIfZero() {
+        manager = new FilmManager(repository,0);
+        FilmItem[] returned = new FilmItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
+        doReturn(returned).when(repository).findAll();
+
+        FilmItem[] expected = new FilmItem[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        FilmItem[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
 }
