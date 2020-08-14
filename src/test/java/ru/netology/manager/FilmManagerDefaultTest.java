@@ -36,6 +36,28 @@ public class FilmManagerDefaultTest {
     }
 
     @Test
+    public void shouldAddFilms() {
+        manager.filmAdd(first);
+        manager.filmAdd(second);
+        manager.filmAdd(third);
+        manager.filmAdd(fourth);
+        manager.filmAdd(fifth);
+        manager.filmAdd(sixth);
+        manager.filmAdd(seventh);
+        manager.filmAdd(eighth);
+        manager.filmAdd(ninth);
+        manager.filmAdd(tenth);
+        FilmItem[] returned = new FilmItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
+        doReturn(returned).when(repository).findAll();
+
+        FilmItem[] expected = new FilmItem[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        FilmItem[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+
+        verify(repository).findAll();
+    }
+
+    @Test
     public void shouldDisplayLastTenIfTen() {
         FilmItem[] returned = new FilmItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
         doReturn(returned).when(repository).findAll();
